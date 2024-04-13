@@ -4,12 +4,14 @@ from dotenv import load_dotenv
 import os
 from werkzeug.utils import secure_filename
 from PIL import Image
+from flask_cors import CORS, cross_origin
 
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 app = Flask(__name__)
+CORS(app)
 
 gem_model = genai.GenerativeModel("models/gemini-pro-vision")
 
@@ -34,7 +36,7 @@ def upload_file():
         print(response.text)
         filepath = f"{UPLOAD_FOLDER}/{file.filename}"
         file.save(filepath)
-        return f'File uploaded successfully to {filepath}', 200
+        return jsonify({'message': f'File uploaded successfully to {filepath}', 'description': response.text}), 200
 
 if __name__ == '__main__':
     app.run(port=5000)  # Flask will run on port 5000
