@@ -13,13 +13,10 @@ export default function Home() {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch('http://localhost:5000/upload', {
+    const response = await fetch('http://127.0.0.1:5000/upload', {
       method: 'POST',
       body: formData,
     });
-
-    const data = await response.json();
-    console.log(data);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +45,7 @@ export default function Home() {
           type="file"
           className="hidden"
           accept="image/*, video/*"
+          onChange={handleFileChange}
         />
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Add more context to your thoughts
