@@ -2,7 +2,14 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { VideoIcon, MagicWandIcon } from "@radix-ui/react-icons";
+import {
+  VideoIcon,
+  MagicWandIcon,
+  LinkedInLogoIcon,
+  DiscordLogoIcon,
+  TwitterLogoIcon,
+  InstagramLogoIcon,
+} from "@radix-ui/react-icons";
 import { useRef, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -14,34 +21,59 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Typewriter } from 'nextjs-simple-typewriter';
+import { Typewriter } from "nextjs-simple-typewriter";
+import React from "react";
 
 export default function Home() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCards, setShowCards] = useState(false);
   const [cardsData, setCardsData] = useState([
     {
-      title: "First Card",
+      title: "LinkedIn",
       description: "This is the first card's description.",
       content: "Content of the first card goes here.",
-      footer: "Footer info of the first card."
+      footer: "Footer info of the first card.",
     },
     {
-      title: "Second Card",
+      title: "Twitter",
       description: "This is the second card's description.",
       content: "Content of the second card goes here.",
-      footer: "Footer info of the second card."
+      footer: "Footer info of the second card.",
     },
     {
-      title: "Third Card",
+      title: "Instagram",
       description: "This is the third card's description.",
       content: "Content of the third card goes here.",
-      footer: "Footer info of the third card."
-    }
+      footer: "Footer info of the third card.",
+    },
+    {
+      title: "Discord",
+      description: "This is the third card's description.",
+      content: "Content of the third card goes here.",
+      footer: "Footer info of the third card.",
+    },
+    {
+      title: "Instagram",
+      description: "This is the third card's description.",
+      content: "Content of the third card goes here.",
+      footer: "Footer info of the third card.",
+    },
+    {
+      title: "Instagram",
+      description: "This is the third card's description.",
+      content: "Content of the third card goes here.",
+      footer: "Footer info of the third card.",
+    },
   ]);
   const [radioValue, setRadioValue] = useState(0.5); // Default value
   const [contextText, setContextText] = useState("");
-
+  const [temperatureToSend, setTemperatureToSend] = useState("default");
+  const iconMapping = {
+    LinkedIn: LinkedInLogoIcon,
+    Discord: DiscordLogoIcon,
+    Twitter: TwitterLogoIcon,
+    Instagram: InstagramLogoIcon,
+  };
 
   // POST REQUEST
   const handleUpload = async (file: File) => {
@@ -66,8 +98,6 @@ export default function Home() {
   };
   // END POST REQUESTs
 
-  
-
   // GET requests
   const handleGeneratePosts = async () => {
     try {
@@ -85,21 +115,23 @@ export default function Home() {
   // END REQUESTs
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-8 py-12">
+    <main className="flex min-h-screen flex-col items-center justify-between px-8 py-16">
       <div className="z-10 w-full max-w-5xl flex flex-col items-center space-y-6">
         {/* Title in its own div */}
         <div className="flex justify-center w-full">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-4.5xl">
-            ThinkedIn: The Social Network for {''}
-            <Typewriter
-              words={['Thinkers','Creators','Innovators', 'Dreamers']}
-              loop={0} // Number of loops, set to 0 for infinite looping
-              cursor
-              cursorStyle='|'
-              typeSpeed={60}
-              deleteSpeed={60}
-              delaySpeed={1000}
-            />
+            ThinkedIn: The Social Network for {""}
+            <span style={{ color: "purple", fontWeight: "bold" }}>
+              <Typewriter
+                words={["Thinkers", "Creators", "Innovators", "Dreamers"]}
+                loop={0} // Number of loops, set to 0 for infinite looping
+                cursor
+                cursorStyle="|"
+                typeSpeed={60}
+                deleteSpeed={60}
+                delaySpeed={1000}
+              />
+            </span>
           </h1>
         </div>
         {/* Button in its own div */}
@@ -116,18 +148,21 @@ export default function Home() {
         </div>
         {/* Radio buttons in its own div */}
         <div className="flex justify-center w-full">
-          <RadioGroup defaultValue="default">
+          <RadioGroup
+            value={temperatureToSend} // This ensures the RadioGroup is a controlled component
+            onValueChange={setTemperatureToSend} // Directly set the temperatureToSend state
+          >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="default" id="default" />
-              <Label htmlFor="default">Default</Label>
+              <RadioGroupItem value="default" id="r1" />
+              <Label htmlFor="r1">Default</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="creative" id="creative" />
-              <Label htmlFor="creative">Creative</Label>
+              <RadioGroupItem value="comfortable" id="r2" />
+              <Label htmlFor="r2">Creative</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="experimental" id="experimental" />
-              <Label htmlFor="experimental">Experimental</Label>
+              <RadioGroupItem value="compact" id="r3" />
+              <Label htmlFor="r3">Experimental</Label>
             </div>
           </RadioGroup>
         </div>
@@ -150,7 +185,7 @@ export default function Home() {
         {/* Textarea in its own div */}
         <div className="flex justify-center w-full">
           <Textarea
-            className="text-lg p-4 w-full h-48 border-2 border-gray-300 rounded-md resize-none"
+            className="text-lg p-4 w-full h-24 border-2 border-gray-300 rounded-md resize-none"
             placeholder="Type context..."
           />
         </div>
@@ -163,10 +198,21 @@ export default function Home() {
         <div className="flex flex-wrap gap-4 justify-center">
           {/* Dynamic rendering of cards, assuming cardsData is an array of card info */}
           {cardsData.map((card, index) => (
-            <div key={index} className="w-full w-[16rem] md:w-[20rem] h-[18rem] flex flex-row flex-wrap gap-12 justify-between">
+            <div
+              key={index}
+              className="w-full w-[16rem] md:w-[20rem] h-[18rem] flex flex-row flex-wrap gap-12 justify-between"
+            >
               <Card>
                 <CardHeader>
-                  <CardTitle>{card.title}</CardTitle>
+                  <div className="flex flex-row items-center gap-2">
+                    <CardTitle>{card.title}</CardTitle>
+                    {iconMapping[card.title as keyof typeof iconMapping]
+                      ? React.createElement(
+                          iconMapping[card.title as keyof typeof iconMapping],
+                          { className: "w-6 h-6" }
+                        )
+                      : null}
+                  </div>
                   <CardDescription>{card.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -179,23 +225,17 @@ export default function Home() {
             </div>
           ))}
         </div>
-
-
       </div>
     </main>
   );
 }
 
-
-
-
-
-
-
-
 //Commented out code:
-        {/* Card in its own div */}
-        {/* <div className="flex flex-row flex-wrap gap-12">
+{
+  /* Card in its own div */
+}
+{
+  /* <div className="flex flex-row flex-wrap gap-12">
           <div className="w-[18rem] h-[18rem]">
             <Card>
               <CardHeader>
@@ -237,5 +277,8 @@ export default function Home() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-          </div> */}
-        {/* </div> */}
+          </div> */
+}
+{
+  /* </div> */
+}
