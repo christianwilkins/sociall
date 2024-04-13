@@ -48,7 +48,7 @@ export default function Home() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch("https://anonymaskedcoder.pythonanywhere.com:5000/upload", {
+    const response = await fetch("https://anonymaskedcoder.pythonanywhere.com/upload", {
       method: "POST",
       body: formData,
     });
