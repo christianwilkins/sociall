@@ -27,29 +27,8 @@ import React from "react";
 import FileUpload from "@/components/ui/FileUpload";
 import { FileUploader } from "react-drag-drop-files";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
+import { SocialMedias, socialCard, ResponseType, SomeSocialMedias } from "@/types/socialMedias";
 
-export enum SocialMedias {
-  Instagram = 'Instagram',
-  Discord = 'Discord',
-  Twitter = 'Twitter',
-  LinkedIn = 'LinkedIn',
-  Facebook = 'Facebook',
-  Reddit = 'Reddit'
-}
-
-export type Card = {
-  title: SocialMedias,
-  description: string,
-  content: string,
-  footer: string
-}
-
-export type ResponseType = Pick<Card, 'description'> & {
-  message: string
-};
-export type SomeSocialMedias = {
-  [K in keyof typeof SocialMedias]?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>
-};
 const SocialMediaIcons: SomeSocialMedias = {
   LinkedIn: LinkedInLogoIcon,
   Discord: DiscordLogoIcon,
@@ -68,7 +47,7 @@ export default function Home() {
   const fileTypes = ["JPG", "PNG", "MP4"];  // UPDATE TYPES
   const [generatingLoading, setGeneratingLoading] = useState<boolean>(false);
 
-  const [cardsData, setCardsData] = useState<Card[]>( 
+  const [cardsData, setCardsData] = useState<socialCard[]>( 
     Object.values(SocialMedias).map((cardTitle) => {
       return {
         title: cardTitle,
