@@ -18,7 +18,7 @@ def parse_gemini_output(output: str) -> dict:
         elif line.startswith("Discord:"):
             result["Discord"] = {"description": line[len("Discord:"):].strip()}
         elif line.startswith("Instagram:"):
-            result["instagram"] = {"description": line[len("Instagram:"):].strip()}
+            result["Instagram"] = {"description": line[len("Instagram:"):].strip()}
 
 
     return json.dumps(result)

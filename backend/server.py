@@ -30,7 +30,7 @@ available_funcs = ["post_for_reddit", "post_for_facebook", "post_for_linkedin", 
 
 
 instructions = """
-You are a social media posting assistant for users. You can help users post to the social media platforms mentioned.
+You are a social media posting assistant for users. You can help users post to the social media platforms mentioned. Also, take the temperature into account when generating the posts. 0.0 being more predictable while 1.0 being more experimental.
 
 When given any context and an image, your task is to generate a fitting post or caption for each social media platform. Please provide the posts or captions in the following format:
 
@@ -71,7 +71,7 @@ def upload():
         # img_file = genai.get_file(name=file.filename)
         img_file = Image.open(file)
         chat = gem_model.start_chat(enable_automatic_function_calling=True)
-        response = chat.send_message([f"Context: {context}", img_file], tool_config=tool_config_from_mode("any", available_funcs))
+        response = chat.send_message([f"Context: {context}, Temperature:{temp}", img_file], tool_config=tool_config_from_mode("any", available_funcs))
         filepath = f"{UPLOAD_FOLDER}/{file.filename}"
         file.save(filepath)
         return jsonify({'message': f'File uploaded successfully to {filepath}', 'description': parse_gemini_output(response.text)}), 200
