@@ -5,7 +5,7 @@ import os
 from werkzeug.utils import secure_filename
 from PIL import Image
 from flask_cors import CORS, cross_origin
-from social_media import post_for_twitter, post_for_instagram, post_for_facebook
+from social_media import *
 from google.generativeai.types import content_types
 from collections.abc import Iterable
 from helper_functions import parse_gemini_output
@@ -25,18 +25,21 @@ app = Flask(__name__)
 CORS(app)
 
 
-social_media_funcs = [post_for_twitter, post_for_instagram, post_for_facebook]
-available_funcs = ["post_for_twitter", "post_for_instagram", "post_for_facebook"]
+social_media_funcs = [post_for_reddit, post_for_facebook, post_for_linkedin, post_for_twitter, post_for_discord, post_for_instagram]
+available_funcs = ["post_for_reddit", "post_for_facebook", "post_for_linkedin", "post_for_twitter", "post_for_discord", "post_for_instagram"]
 
 
 instructions = """
-You are a social media posting assistant for users. You can help users post to Twitter, Instagram, and Facebook.
+You are a social media posting assistant for users. You can help users post to the social media platforms mentioned.
 
 When given any context and an image, your task is to generate a fitting post or caption for each social media platform. Please provide the posts or captions in the following format:
 
-Twitter: Your generated post for Twitter goes here.
-Instagram: Your generated post for Instagram goes here.
+Reddit: Your generated post for Reddit goes here.
 Facebook: Your generated post for Facebook goes here.
+Linkedin: Your generated post for Linkedin goes here.
+Twitter: Your generated post for Twitter goes here.
+Discord: Your generated post for Discord goes here.
+Instagram: Your generated post for Instagram goes here.
 """
 gem_model = genai.GenerativeModel("models/gemini-1.5-pro-latest", tools=social_media_funcs, system_instruction=instructions)
 
@@ -61,6 +64,11 @@ def upload():
         return "No selected file", 400
     if file:
         # If we have the file, we want to make Gemini describe it
+        # filepath = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+        # print(f"FILENAME IS {file.filename}")
+        # file.save(filepath)
+        # img_upload = genai.upload_file(path=filepath, display_name=file.filename)
+        # img_file = genai.get_file(name=file.filename)
         img_file = Image.open(file)
         chat = gem_model.start_chat(enable_automatic_function_calling=True)
         response = chat.send_message([f"Context: {context}", img_file], tool_config=tool_config_from_mode("any", available_funcs))
