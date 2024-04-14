@@ -317,12 +317,12 @@ const copyToClipboard = (text: string, index: number) => {
               <p>{generatingLoading ? 'Loading...' : "Generate Posts"}</p>
             </Button>
           </div>
-          <div className="flex flex-wrap gap-4 justify-center confirmation-message slide-up-animation w-full max-w-screen-xl mx-auto">
+          <div className="flex flex-wrap gap-4 justify-center confirmation-message slide-up-animation">
             {/* Dynamic rendering of cards, assuming cardsData is an array of card info */}
             {cardsData.map((card, index) => (
               <div
                 key={index}
-                className="relative w-[calc((100% - 2rem) / 3)] md:w-[calc((100% - 4rem) / 3)] h-[18rem] m-2 border border-gray-200 rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-xl hover:scale-105 transform-gpu "
+                className="relative w-[13rem] md:w-[19rem] h-[18rem] m-2 border border-gray-200 rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-xl hover:scale-105 transform-gpu"
                 style={{ transition: 'transform 300ms ease-in-out, box-shadow 300ms ease-in-out' }}
                 >
                   <div className="flex flex-col h-full">
