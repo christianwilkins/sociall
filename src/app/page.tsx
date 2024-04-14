@@ -33,8 +33,8 @@ export enum SocialMedias {
   Discord = 'Discord',
   Twitter = 'Twitter',
   LinkedIn = 'LinkedIn',
-  Github = 'Github',
-  // Facebook = 'Facebook'
+  Facebook = 'Facebook',
+  Reddit = 'Reddit'
 }
 
 export type Card = {
@@ -47,6 +47,15 @@ export type Card = {
 export type ResponseType = Pick<Card, 'description'> & {
   message: string
 };
+export type SomeSocialMedias = {
+  [K in keyof typeof SocialMedias]?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>
+};
+const SocialMediaIcons: SomeSocialMedias = {
+  LinkedIn: LinkedInLogoIcon,
+  Discord: DiscordLogoIcon,
+  Twitter: TwitterLogoIcon,
+  Instagram: InstagramLogoIcon,
+}
 
 export default function Home() {
 
@@ -74,12 +83,11 @@ export default function Home() {
     }
   };
 
-  const iconMapping: Record<SocialMedias, React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>> = {
+  const iconMapping: SomeSocialMedias ={ 
     LinkedIn: LinkedInLogoIcon,
     Discord: DiscordLogoIcon,
     Twitter: TwitterLogoIcon,
     Instagram: InstagramLogoIcon,
-    Github: GitHubLogoIcon,
   };
 
   /// POST REQUESTS
@@ -123,11 +131,12 @@ export default function Home() {
     if (response.ok) {
       setGeneratingLoading(false);
       const data: ResponseType = await response.json();
-      console.log('data = ', data);
+      // make your edits hear if the stuff isn't showing.
+      const parsedData: Record<SocialMedias, Card> = JSON.parse(data.description);
       setCardsData((prevData) => {
         return prevData.map((card) => {
-          if (card.title === SocialMedias.LinkedIn) {
-            return {...card, description: data.description}
+          if (parsedData[card.title]) {
+            return {...card, description: parsedData[card.title].description}
           }
           return card
         })
@@ -307,12 +316,12 @@ export default function Home() {
                   <CardHeader>
                     <div className="flex flex-row items-center gap-2">
                       <CardTitle>{card.title}</CardTitle>
-                      {iconMapping[card.title as keyof typeof iconMapping]
-                        ? React.createElement(
-                          iconMapping[card.title as keyof typeof iconMapping],
+                      {SocialMediaIcons[card.title] ? 
+                        React.createElement(
+                          SocialMediaIcons[card.title]!,
                           { className: "w-6 h-6" }
-                        )
-                        : null}
+                        ) : null
+                      }
                     </div>
                     <CardDescription>{card.description}</CardDescription>
                   </CardHeader>
