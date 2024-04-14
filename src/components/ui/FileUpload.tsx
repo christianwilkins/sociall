@@ -15,23 +15,23 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { create as createFilePond } from 'filepond';
 
 // Create a FilePond instance on a specified DOM element
-const inputElement = document.querySelector('input[type="file"]');
-const pond = createFilePond(inputElement);
+// const inputElement = document.querySelector('input[type="file"]');
+// const pond = createFilePond(inputElement);
 
-// Set some options on the FilePond instance
-pond.setOptions({
-    server: 'your-endpoint-here',
-    maxFiles: 3
-});
+// // Set some options on the FilePond instance
+// pond.setOptions({
+//     server: 'your-endpoint-here',
+//     maxFiles: 3
+// });
 
-// Listen for FilePond events
-pond.on('addfile', (error, file) => {
-    if (error) {
-        console.error('Error adding file:', error);
-    } else {
-        console.log('File added:', file);
-    }
-});
+// // Listen for FilePond events
+// pond.on('addfile', (error, file) => {
+//     if (error) {
+//         console.error('Error adding file:', error);
+//     } else {
+//         console.log('File added:', file);
+//     }
+// });
 
 
 // Register the plugins
