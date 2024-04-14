@@ -22,21 +22,25 @@ if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 @app.route('/upload' , methods=['POST'])
-def upload_file():
+def upload():
+    """ The backend function that handles the uploading of images to the Gemini API """
     if "file" not in request.files:
         return "No file part", 400
 
     file = request.files["file"]
+    context = request.form.get("context")
+    temp = request.form.get("tone")
+
     if file.filename == "":
         return "No selected file", 400
     if file:
         # If we have the file, we want to make Gemini describe it
         img_file = Image.open(file)
-        response = gem_model.generate_content(["Describe this image", img_file])
-        print(response.text)
+        response = gem_model.generate_content([f"Describe this image according to the given context: {context}", img_file])
         filepath = f"{UPLOAD_FOLDER}/{file.filename}"
         file.save(filepath)
         return jsonify({'message': f'File uploaded successfully to {filepath}', 'description': response.text}), 200
+
 
 if __name__ == '__main__':
     app.run(port=5000)  # Flask will run on port 5000
