@@ -36,22 +36,17 @@ social media platform according to the following JSON format:
 {
     "twitter": {
         "description":
-        "title":
-        "footer":
     },
     "instagram": {
         "description":
-        "title":
-        "footer":
     },
     "facebook": {
         "description":
-        "title":
-        "footer":
     }
 }
 
-Also, for each JSON key, the value should be in double quotes.
+Also, for each JSON key, the value should be in double quotes. Make sure there are no SINGLE QUOTES. 
+Everything should be in proper JSON format, that is, in DOUBLE QUOTES.
 """
 gem_model = genai.GenerativeModel("models/gemini-1.5-pro-latest", tools=social_media_funcs, system_instruction=instructions)
 
