@@ -34,22 +34,24 @@ Based on any context and image the user provides, you are to return a fitting po
 social media platform according to the following JSON format:
 
 {
-    twitter: {
-        description:
-        title:
-        footer:
+    "twitter": {
+        "description":
+        "title":
+        "footer":
     },
-    instagram: {
-        description:
-        title:
-        footer:
+    "instagram": {
+        "description":
+        "title":
+        "footer":
     },
-    facebook: {
-        description:
-        title:
-        footer:
+    "facebook": {
+        "description":
+        "title":
+        "footer":
     }
 }
+
+Also, for each JSON key, the value should be in double quotes.
 """
 gem_model = genai.GenerativeModel("models/gemini-1.5-pro-latest", tools=social_media_funcs, system_instruction=instructions)
 
