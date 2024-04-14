@@ -131,7 +131,7 @@ export default function Home() {
     if (response.ok) {
       setGeneratingLoading(false);
       const data: ResponseType = await response.json();
-      console.log('data = ', data);
+      // make your edits hear if the stuff isn't showing.
       const parsedData: Record<SocialMedias, Card> = JSON.parse(data.description);
       setCardsData((prevData) => {
         return prevData.map((card) => {
