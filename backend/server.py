@@ -8,6 +8,7 @@ from flask_cors import CORS, cross_origin
 from social_media import post_for_twitter, post_for_instagram, post_for_facebook
 from google.generativeai.types import content_types
 from collections.abc import Iterable
+from helper_functions import parse_gemini_output
 
 
 def tool_config_from_mode(mode: str, fns: Iterable[str] = ()):
@@ -29,24 +30,13 @@ available_funcs = ["post_for_twitter", "post_for_instagram", "post_for_facebook"
 
 
 instructions = """
-You are a social media posting assistant for users. You can help users post to Twitter and Instagram.
-Based on any context and image the user provides, you are to return a fitting post or caption for each 
-social media platform according to the following JSON format:
+You are a social media posting assistant for users. You can help users post to Twitter, Instagram, and Facebook.
 
-{
-    "twitter": {
-        "description":
-    },
-    "instagram": {
-        "description":
-    },
-    "facebook": {
-        "description":
-    }
-}
+When given any context and an image, your task is to generate a fitting post or caption for each social media platform. Please provide the posts or captions in the following format:
 
-Also, for each JSON key, the value should be in double quotes. Make sure there are no SINGLE QUOTES. 
-Everything should be in proper JSON format, that is, in DOUBLE QUOTES.
+Twitter: Your generated post for Twitter goes here.
+Instagram: Your generated post for Instagram goes here.
+Facebook: Your generated post for Facebook goes here.
 """
 gem_model = genai.GenerativeModel("models/gemini-1.5-pro-latest", tools=social_media_funcs, system_instruction=instructions)
 
@@ -76,7 +66,7 @@ def upload():
         response = chat.send_message([f"Context: {context}", img_file], tool_config=tool_config_from_mode("any", available_funcs))
         filepath = f"{UPLOAD_FOLDER}/{file.filename}"
         file.save(filepath)
-        return jsonify({'message': f'File uploaded successfully to {filepath}', 'description': response.text}), 200
+        return jsonify({'message': f'File uploaded successfully to {filepath}', 'description': parse_gemini_output(response.text)}), 200
 
 
 if __name__ == '__main__':
