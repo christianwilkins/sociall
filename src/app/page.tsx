@@ -117,21 +117,21 @@ export default function Home() {
     fileInputRef.current!.click();
   };
 
-  const handleTemperatureChange = (number: value) => {
-    let numberValue = 0; 
-    switch(value) {
-      case 'default':
-        numberValue = 0;
-        break;
-      case 'comfortable':
-        numberValue = 1;
-        break;
-      case 'compact':
-        numberValue = 2;
-        break;
-    }
-    setTemperatureToSend(numberValue);
-  };
+  // const handleTemperatureChange = (value) => {
+  //   let numberValue = 0; 
+  //   switch(value) {
+  //     case 'default':
+  //       numberValue = 0;
+  //       break;
+  //     case 'comfortable':
+  //       numberValue = 1;
+  //       break;
+  //     case 'compact':
+  //       numberValue = 2;
+  //       break;
+  //   }
+  //   setTemperatureToSend(numberValue);
+  // };
 
   
   const setTemperatureToDefault = () => {
@@ -175,7 +175,7 @@ export default function Home() {
             <VideoIcon className="mr-2 h-4 w-4" /> Upload Media
           </Button>
         </div>
-        {/* <FileUpload onProcessFiles={handleFileChange} /> */}
+        {/* TODO? <FileUpload onProcessFiles={handleFileChange} /> */}
         {/* Subtitle in its own div */}
         <div className="flex justify-center w-full">
           <h4 className="text-xl font-semibold tracking-tight">
