@@ -19,7 +19,7 @@ idna==3.7
 itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
 Jinja2 @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/jinja2_1707426091452/work
 MarkupSafe @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/markupsafe_1707425732791/work
-pillow==10.3.0
+pillow==12.1.1
 proto-plus==1.23.0
 protobuf==4.25.3
 pyasn1==0.6.0
