@@ -34,6 +34,6 @@ setuptools==68.2.2
 tqdm==4.66.2
 typing_extensions==4.11.0
 uritemplate==4.1.1
-urllib3==2.2.1
+urllib3==2.6.3
 Werkzeug @ file:///C:/b/abs_3901hwqcw0/croot/werkzeug_1706210134718/work
 wheel==0.46.2
