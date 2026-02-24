@@ -28,7 +28,7 @@ pydantic==2.7.0
 pydantic_core==2.18.1
 pyparsing==3.1.2
 python-dotenv @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/python-dotenv_1699475097728/work
-requests==2.31.0
+requests==2.32.4
 rsa==4.9
 setuptools==68.2.2
 tqdm==4.66.2
