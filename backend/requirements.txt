@@ -1,6 +1,6 @@
 annotated-types==0.6.0
 cachetools==5.3.3
-certifi==2024.2.2
+certifi==2024.7.4
 charset-normalizer==3.3.2
 click @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/click_1699473800648/work
 colorama @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/colorama_1699472650914/work
